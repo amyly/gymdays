@@ -1,4 +1,4 @@
-﻿Javascript web app showing the number of times you've been to the gym in the past 7 days.
+﻿Javascript/foursquare web app showing the number of times you've been to the gym in the past 7 days.
 
 http://amys.ly/gymdays
 
