@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>foursquare gym days</title>
+	<style type="text/css">
+
+		body {
+			text-align: center;			
+		}
+
+		p {
+			text-align: center;
+		}
+
+		#container {
+			margin: 0 auto;
+			width: 75%;
+			font: 24px Helvetica;
+		}
+
+		h1 {
+			font-size: 48px;
+			text-align: center;
+		}
+
+		.weekday {
+			float: left;
+			width: 14%;
+			text-align: center;
+		}
+
+		@media only screen and (max-device-width: 400px) {
+			#container {
+				width: 100%;
+			}
+
+			.weekday {
+				font: 50px Helvetica;
+				float: none;
+				width: 100%;
+			}
+
+		}
+
+	</style>
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-bbq.js"></script>
+	<script type="text/javascript" src="js/foursquareapi.js"></script>
+	<script type="text/javascript">
+
+	function HowMany(apiKey, authUrl, apiUrl) {
+		this.foursquare = new Foursquare(apiKey, authUrl, apiUrl);
+	}
+
+	HowMany.prototype.run = function() {
+		if(this.foursquare.token) {
+			this.foursquare.history(bind(this.onHistory, this));
+		}
+	}
+
+	HowMany.prototype.onHistory = function(history) {
+		var count = 0; //Number of times you've been to the gym in the past 7 days
+		var gymdays = []; //Gym check-ins from the last 7 days
+		var today = new Date();
+		var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+		var exactlysixdaysago = new Date(today.getTime() - 86400*6000);
+		var sevendaysago = new Date(exactlysixdaysago.getFullYear(), exactlysixdaysago.getMonth(), exactlysixdaysago.getDate());
+
+		// Finding all gym check-ins in the last 7 days and storing in var gymdays
+		for (var i = history.length - 1; i >= 0; i--) {
+			var entry = history[i];
+			if (entry.venue.categories[0]) {
+				if (entry.createdAt >= sevendaysago.getTime()/1000) {
+					for (var j = 0; j < entry.venue.categories.length; j++) {
+						if (entry.venue.categories[j].name.indexOf('Gym') > -1) {
+							count++;
+							gymdays.push(entry);
+						}
+					}
+				}
+			}
+		}
+
+		// Date settings; Calculating weekday array based on today's day
+		$('.weekday').each(function(i) {
+			var day = new Date(sevendaysago.getTime() + i*86400000);
+			$(this).append(weekdays[day.getDay()]);
+			for (var j = 0; j < gymdays.length; j++) {
+				var gymdaysDate = new Date(gymdays[j].createdAt*1000);
+				if (day.getDate() == gymdaysDate.getDate()) {
+					$(this).append('<br/>', j+1, '<br/>', gymdays[j].venue.name);
+				}
+			}
+		})
+
+		$('#count').html('You have gone to the gym '+count+' times in the past 7 days.');
+	}
+
+	$(document).ready(function() {
+		new HowMany('AXPSP3AQIGGDNQMS1HIQZJ1WVCTMK2QBVYOBYTARH5VYBRUY', 'https://foursquare.com/', 'https://api.foursquare.com/').run();
+	})
+
+	</script>
+</head>
+<body>
+	<div id="container">
+		<div id="headline"></div>
+		<div id="count"></div>
+		<div id="content"></div>
+		<div class="weekday"></div>
+		<div class="weekday"></div>
+		<div class="weekday"></div>
+		<div class="weekday"></div>
+		<div class="weekday"></div>
+		<div class="weekday"></div>
+		<div class="weekday"></div>
+	</div>
+</body>
+</html>
