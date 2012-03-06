@@ -103,4 +103,17 @@ a:visited {
 		padding-bottom: 20px;
 	}
 
+	.weekdate {
+		width: 30%;
+	}
+
+	.day {
+		width: 30%;
+	}
+
+	.gym {
+		float: left;
+		width: 70%;
+	}
+
 }
