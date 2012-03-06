@@ -15,7 +15,7 @@ function Foursquare(apiKey, authUrl, apiUrl) {
   else {
     //var redirect = window.location.href.replace(window.location.hash, '');
     var url = authUrl + 'oauth2/authenticate?response_type=token&client_id=' + apiKey + '&redirect_uri=http://amys.ly/gymdays/'; // + '&state=' + encodeURIComponent($.bbq.getState('req') || 'users/self');
-    $('#headline').append('<h1>Gym or No Gym?</h1><p><a href=""><img src="img/connect.png"></a><br/>to find out!</p>');
+    $('#header').append('How many times have you<br/><span class=orange>laced up your gym shoes<br/>tired out your muscles<br/>worked up a sweat</span><br/>in the past 7 days.<br/><br/><a href=""><img src="img/connect-big.png"></a>');
     $('a').attr("href", url)
     //this.doAuthRedirect(authUrl, apiKey);
   }

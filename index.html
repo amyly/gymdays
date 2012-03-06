@@ -4,47 +4,9 @@
 <html>
 <head>
 	<title>foursquare gym days</title>
-	<style type="text/css">
-
-		body {
-			text-align: center;			
-		}
-
-		p {
-			text-align: center;
-		}
-
-		#container {
-			margin: 0 auto;
-			width: 75%;
-			font: 24px Helvetica;
-		}
-
-		h1 {
-			font-size: 48px;
-			text-align: center;
-		}
-
-		.weekday {
-			float: left;
-			width: 14%;
-			text-align: center;
-		}
-
-		@media only screen and (max-device-width: 400px) {
-			#container {
-				width: 100%;
-			}
-
-			.weekday {
-				font: 50px Helvetica;
-				float: none;
-				width: 100%;
-			}
-
-		}
-
-	</style>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
+	<link href="stylesheet.css" type="text/css" rel="stylesheet" />
 	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery-bbq.js"></script>
 	<script type="text/javascript" src="js/foursquareapi.js"></script>
@@ -65,6 +27,7 @@
 		var gymdays = []; //Gym check-ins from the last 7 days
 		var today = new Date();
 		var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+		var months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 		var exactlysixdaysago = new Date(today.getTime() - 86400*6000);
 		var sevendaysago = new Date(exactlysixdaysago.getFullYear(), exactlysixdaysago.getMonth(), exactlysixdaysago.getDate());
 
@@ -74,7 +37,7 @@
 			if (entry.venue.categories[0]) {
 				if (entry.createdAt >= sevendaysago.getTime()/1000) {
 					for (var j = 0; j < entry.venue.categories.length; j++) {
-						if (entry.venue.categories[j].name.indexOf('Gym') > -1) {
+						if ((entry.venue.categories[j].name.indexOf('Gym') > -1) || (entry.venue.categories[j].name == 'Pools') || (entry.venue.categories[j].name.indexOf('Martial') > -1) || (entry.venue.categories[j].name == 'Tracks') || (entry.venue.categories[j].name.indexOf('Yoga') > -1)) {
 							count++;
 							gymdays.push(entry);
 						}
@@ -83,19 +46,43 @@
 			}
 		}
 
+		//
+		function pad2(number) {
+			return (number < 10 ? '0' : '') + number;
+		}
+
 		// Date settings; Calculating weekday array based on today's day
 		$('.weekday').each(function(i) {
 			var day = new Date(sevendaysago.getTime() + i*86400000);
-			$(this).append(weekdays[day.getDay()]);
+			$(this).children('.weekdate').append(months[day.getMonth()], ' ', day.getDate());
+			$(this).children('.day').append(weekdays[day.getDay()]);
 			for (var j = 0; j < gymdays.length; j++) {
 				var gymdaysDate = new Date(gymdays[j].createdAt*1000);
 				if (day.getDate() == gymdaysDate.getDate()) {
-					$(this).append('<br/>', j+1, '<br/>', gymdays[j].venue.name);
+					$(this).children('.day').addClass('orange');
+					$(this).children('.gym').append(gymdays[j].venue.name, '<br/>@ ', gymdaysDate.getHours(), ':', pad2(gymdaysDate.getMinutes()));
 				}
 			}
 		})
 
-		$('#count').html('You have gone to the gym '+count+' times in the past 7 days.');
+		$('.day:last').text('Today');
+
+		var numWords = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+		if (count == 1) {
+			$('#count').html('Once.');
+		}
+		else if (count == 2) {
+			$('#count').html('Twice.');
+		}
+		else if (count == 0 || count < 10) {
+			$('#count').html(numWords[count]+' times.');
+		}
+		else {
+			$('#count').html(count+' times.');
+		}
+
+		$('#count').append("<br/><span id=countsmall>That's "+count+" check-ins at Gyms or Fitness Centers in the past 7 days.</span>");
+		
 	}
 
 	$(document).ready(function() {
@@ -105,17 +92,42 @@
 	</script>
 </head>
 <body>
-	<div id="container">
-		<div id="headline"></div>
+		<div id="header"></div>
 		<div id="count"></div>
-		<div id="content"></div>
-		<div class="weekday"></div>
-		<div class="weekday"></div>
-		<div class="weekday"></div>
-		<div class="weekday"></div>
-		<div class="weekday"></div>
-		<div class="weekday"></div>
-		<div class="weekday"></div>
-	</div>
+		<div class="weekday">
+			<div class="weekdate"></div>
+			<div class="day"></div>
+			<div class="gym"></div>
+		</div>
+		<div class="weekday">
+			<div class="weekdate"></div>
+			<div class="day"></div>
+			<div class="gym"></div>
+		</div>
+		<div class="weekday">
+			<div class="weekdate"></div>
+			<div class="day"></div>
+			<div class="gym"></div>
+		</div>
+		<div class="weekday">
+			<div class="weekdate"></div>
+			<div class="day"></div>
+			<div class="gym"></div>
+		</div>
+		<div class="weekday">
+			<div class="weekdate"></div>
+			<div class="day"></div>
+			<div class="gym"></div>
+		</div>
+		<div class="weekday">
+			<div class="weekdate"></div>
+			<div class="day"></div>
+			<div class="gym"></div>
+		</div>
+		<div class="weekday">
+			<div class="weekdate"></div>
+			<div class="day"></div>
+			<div class="gym"></div>
+		</div>
 </body>
 </html>
