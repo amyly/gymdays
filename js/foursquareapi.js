@@ -9,14 +9,15 @@ function Foursquare(apiKey, authUrl, apiUrl) {
     // If there is a token in the state, consume it
     this.token = $.bbq.getState('access_token');
     $.bbq.pushState({}, 2)
+    $('#header').hide();
   } 
   else if ($.bbq.getState('error')) {
   }
   else {
     //var redirect = window.location.href.replace(window.location.hash, '');
     var url = authUrl + 'oauth2/authenticate?response_type=token&client_id=' + apiKey + '&redirect_uri=http://amys.ly/gymdays/'; // + '&state=' + encodeURIComponent($.bbq.getState('req') || 'users/self');
-    $('#header').append('How many times have you<br/><span class=orange>laced up your gym shoes<br/>tired out your muscles<br/>worked up a sweat</span><br/>in the past 7 days.<br/><br/><a href=""><img src="img/connect-big.png"></a>');
-    $('a').attr("href", url)
+    $('#header').show();
+    $('a:first').attr("href", url)
     //this.doAuthRedirect(authUrl, apiKey);
   }
 }

@@ -46,7 +46,7 @@
 			}
 		}
 
-		//
+		//Double-digit minutes
 		function pad2(number) {
 			return (number < 10 ? '0' : '') + number;
 		}
@@ -81,18 +81,39 @@
 			$('#count').html(count+' times.');
 		}
 
-		$('#count').append("<br/><span id=countsmall>That's "+count+" check-ins at Gyms or Fitness Centers in the past 7 days.</span>");
+		$('#count').append("<br/><span id=countsmall>That's "+count+" check-in(s) at Gyms or Fitness Centers in the past 7 days.</span>");
 		
 	}
+
+	$('.showscreen a').click(function() {
+		$('#screenshot').show('slow');
+	})
 
 	$(document).ready(function() {
 		new HowMany('AXPSP3AQIGGDNQMS1HIQZJ1WVCTMK2QBVYOBYTARH5VYBRUY', 'https://foursquare.com/', 'https://api.foursquare.com/').run();
 	})
 
 	</script>
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-17162542-2']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
 </head>
 <body>
-		<div id="header"></div>
+		<div id="header">
+			<p>How many times have you<br/><span class=orange>laced up your gym shoes<br/>flexed your muscles<br/>worked up a sweat</span><br/>in the past 7 days?<br/><br/><a href=""><img src="img/connect-big.png"></a></p>
+			<p class="smallfont">(In case you were curious.)</p>
+			<p class="smallerfont" style="padding-top: 20px;">Created by Amy Ly (<a href="http://twitter.com/amyly">@amyly</a>)<br/><br/><a href="http://github.com/amyly/gymdays">Source on Github</a><br/>Copyright 2012.</p>
+		</div>
 		<div id="count"></div>
 		<div class="weekday">
 			<div class="weekdate"></div>
