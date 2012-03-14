@@ -86,6 +86,16 @@ a:visited {
 	font-weight: 300;
 }
 
+.smallestfont {
+	font-size: 10px;
+	font-weight: 300;
+}
+
+#week {
+	padding-bottom: 150px;
+	display: none;
+}
+
 @media only screen and (max-width: 480px) {
 	body {
 		font-size: 28px;

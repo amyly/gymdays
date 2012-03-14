@@ -46,13 +46,13 @@
 			}
 		}
 
-		//Double-digit minutes
-		function pad2(number) {
-			return (number < 10 ? '0' : '') + number;
-		}
-
+		
 		// Date settings; Calculating weekday array based on today's day
 		$('.weekday').each(function(i) {
+			//Double-digit minutes
+			function pad2(number) {
+				return (number < 10 ? '0' : '') + number;
+			}
 			var day = new Date(sevendaysago.getTime() + i*86400000);
 			$(this).children('.weekdate').append(months[day.getMonth()], ' ', day.getDate());
 			$(this).children('.day').append(weekdays[day.getDay()]);
@@ -82,20 +82,16 @@
 		}
 
 		$('#count').append("<br/><span id=countsmall>That's "+count+" check-in(s) at Gyms or Fitness Centers in the past 7 days.</span>");
-		
-	}
 
-	$('.showscreen a').click(function() {
-		$('#screenshot').show('slow');
-	})
+		$('#tweet').show();
+		$('#week').show();
+	}
 
 	$(document).ready(function() {
 		new HowMany('AXPSP3AQIGGDNQMS1HIQZJ1WVCTMK2QBVYOBYTARH5VYBRUY', 'https://foursquare.com/', 'https://api.foursquare.com/').run();
 	})
-
 	</script>
 	<script type="text/javascript">
-
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-17162542-2']);
 	  _gaq.push(['_trackPageview']);
@@ -105,16 +101,19 @@
 	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
-
 	</script>
 </head>
 <body>
 		<div id="header">
-			<p>How many times have you<br/><span class=orange>laced up your gym shoes<br/>flexed your muscles<br/>worked up a sweat</span><br/>in the past 7 days?<br/><br/><a href=""><img src="img/connect-big.png"></a></p>
-			<p class="smallfont">(In case you were curious.)</p>
-			<p class="smallerfont" style="padding-top: 20px;">Created by Amy Ly (<a href="http://twitter.com/amyly">@amyly</a>)<br/><br/><a href="http://github.com/amyly/gymdays">Source on Github</a><br/>Copyright 2012.</p>
+			<p id="button">How many times have you<br/><span class=orange>laced up your gym shoes<br/>flexed your muscles<br/>worked up a sweat</span><br/>in the past 7 days?<br/><br/><a href=""><img src="img/connect-big.png"></a></p>
+			<p class="smallfont" align="center">(In case you were curious.)</p>
+			<p class="smallfont"><span style="margin-left: 10px"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://amys.ly/gymdays" data-text="How many times have YOU been to the gym in the past 7 days?" data-count="vertical">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></span>
+			</p>
+			<p class="smallerfont" style="padding-top: 5px;">Created by Amy Ly / <a href="http://twitter.com/amyly">@amyly</a><br/><br/><a href="http://github.com/amyly/gymdays">Source on Github</a><br/>Copyright 2012.</p>
+			<p class="smallestfont">Don't use foursquare? Don't check into the gym? <a href="img/screenshot.jpg" target="_blank">Here's a screenshot.</a></p>
 		</div>
 		<div id="count"></div>
+	<div id="week">
 		<div class="weekday">
 			<div class="weekdate"></div>
 			<div class="day"></div>
@@ -149,6 +148,9 @@
 			<div class="weekdate"></div>
 			<div class="day"></div>
 			<div class="gym"></div>
+		</div>
+	</div>
+		<div id="tweet" style="display: none;"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://amys.ly/gymdays" data-text="How many times have YOU been to the gym in the past 7 days?" data-count="vertical">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		</div>
 </body>
 </html>
