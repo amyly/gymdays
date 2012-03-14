@@ -17,7 +17,7 @@ function Foursquare(apiKey, authUrl, apiUrl) {
     //var redirect = window.location.href.replace(window.location.hash, '');
     var url = authUrl + 'oauth2/authenticate?response_type=token&client_id=' + apiKey + '&redirect_uri=http://amys.ly/gymdays/'; // + '&state=' + encodeURIComponent($.bbq.getState('req') || 'users/self');
     $('#header').show();
-    $('a:first').attr("href", url)
+    $('a:first').attr("href", url);
     //this.doAuthRedirect(authUrl, apiKey);
   }
 }
