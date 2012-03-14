@@ -2,9 +2,7 @@
 
 http://amys.ly/gymdays
 
-Work in progress. To-dos:
-- Continue making it look better on mobile
-- Answer the question "should I go to the gym today?" based on the # of recent check-ins (either based on static number, or a running average)
-- Also look for all checkins with #gym, #running, #workout
-- Expand from 7 days to past 30 days
+Work in progress. To-dos:<br/>
+- Also look for all checkins with #gym, #running, #workout<br/>
+- Expand from 7 days to past 30 days<br/>
 - Include other categories
